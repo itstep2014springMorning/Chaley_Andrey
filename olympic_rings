@@ -1,0 +1,89 @@
+main.cpp
+------------------
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include "symbol.h"
+#include "circle.h"
+
+void inition(int i, char buffer[size][size + 2]) {
+	 	for (i = 0; i < size; i++)
+	{
+		strcpy(buffer[i], "                                                              \n");
+	}
+}
+
+ void printing(int i, char buffer[size][size + 2]){
+	 for (i = 0; i < size; i++)
+	 {
+		 printf("%s", buffer[i]);
+	 } printf("\n");
+ }
+
+int main()
+{
+
+int i=0, j;
+int r=12, i0=25, i1=i0+12, j0=20, j1=j0+12, j2=j1+12;
+int ic=30, jc=30, rc=30;
+char buffer[size][size + 2];
+inition(i, buffer);
+symbol(r, i0, j0, buffer);
+circle(rc, ic, jc, buffer);
+printing(i, buffer);
+
+    return 0;
+}
+symbol.h
+-------------------------------------
+#ifndef SYMBOL_H
+#define SYMBOL_H
+#include "circle.h"
+
+
+void  symbol(double r, double i0, double j0, char buffer[size][size + 2]);
+
+
+#endif // SYMBOL_H
+
+symbol.cpp
+--------------------------------
+#include "symbol.h"
+#include <math.h>
+#include "circle.h"
+
+void  symbol(double r, double i0, double j0, char buffer[size][size + 2]){
+	circle(r, i0, j0, buffer);
+circle(r, i0, j0+12, buffer);
+circle(r, i0, j0+24, buffer);
+circle(r, i0+12, j0, buffer);
+circle(r, i0+12, j0+12+7, buffer);
+}
+circle.h
+----------------------------------------
+#ifndef CIRCLE_H
+#define CIRCLE_H
+
+const int size = 62;
+
+void  circle(double r, double i0, double j0, char buffer[size][size + 2]);
+
+#endif // CIRCLE_H
+
+circle.cpp
+------------------------------------------------
+#include "circle.h"
+#include <math.h>
+void  circle(double r, double i0, double j0, char buffer[size][size + 2]){
+	double alpha;
+	for (alpha = 0; alpha < 6.29; alpha += 0.01)
+	{
+		int i = round(r*sin(alpha) + i0);
+		int j = round(r*cos(alpha) + j0);
+		if ((i>=0) && (i<size) && (j>=0) && (j<size))
+		{
+           buffer[i][j] = '*';
+								}
+			}
+}
